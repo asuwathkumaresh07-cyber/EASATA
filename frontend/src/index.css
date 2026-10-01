@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-xs: 475px;
+}
+
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.01);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.15) 20%,
+    rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.15) 80%, rgba(255, 255, 255, 0.45) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+body {
+  font-family: "Helvetica Now Var", Helvetica, Arial, sans-serif;
+  background: #000;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.field {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.6rem;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.875rem;
+  color: #fff;
+  outline: none;
+}
+.field:focus { border-color: rgb(34 211 238 / 0.7); }
+.field option { background: #0b0f17; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  border-radius: 9999px; padding: 0.5rem 1.1rem;
+  font-size: 0.85rem; font-weight: 600; cursor: pointer;
+  transition: all 0.15s;
+}
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-primary { background: linear-gradient(90deg, #34d399, #06b6d4); color: #fff; box-shadow: 0 6px 20px -8px rgb(6 182 212 / 0.6); }
+.btn-primary:hover:not(:disabled) { opacity: 0.92; }
+.btn-ghost { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.85); }
+.btn-ghost:hover:not(:disabled) { background: rgba(255,255,255,0.1); color: #fff; }
+.btn-danger { background: #e11d48; color: #fff; }
+.btn-danger:hover:not(:disabled) { background: #be123c; }
+
+.tbl { width: 100%; font-size: 0.85rem; border-collapse: collapse; }
+.tbl th { text-align: left; font-weight: 500; color: rgba(255,255,255,0.45); padding: 0.55rem 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.08); white-space: nowrap; }
+.tbl td { padding: 0.55rem 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); white-space: nowrap; }
+.tbl tbody tr:hover { background: rgba(255,255,255,0.03); }
+
+/* ---------- landing: scroll reveal + planet animations ---------- */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1); }
+.reveal.revealed { opacity: 1; transform: none; }
+.revealed .grow-bar, .reveal.revealed .grow-bar { animation: grow 1.4s cubic-bezier(.2,.8,.2,1) both; transform-origin: left; }
+@keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+.route { stroke-dasharray: 60 1400; stroke-dashoffset: 1460; animation: travel 5.4s linear infinite; }
+@keyframes travel { to { stroke-dashoffset: 0; } }
+.ping { transform-box: fill-box; transform-origin: center; animation: ping 2.6s ease-out infinite; }
+@keyframes ping { from { transform: scale(1); opacity: .9; } to { transform: scale(5); opacity: 0; } }
+.blink { animation: blink 1.6s ease-in-out infinite; }
+@keyframes blink { 50% { opacity: .3; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .route, .ping, .blink, .grow-bar { animation: none !important; }
+}

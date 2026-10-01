@@ -1,0 +1,28 @@
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local configuration and secrets
+**/.env*
+!**/.env.example
+backend/data/ops_api_key.txt
+backend/data/server_secret.key
+
+# Generated application state and logs
+backend/data/*.db
+backend/data/*.db-*
+*.log
+
+# Frontend dependencies and build output
+node_modules/
+dist/
+coverage/
+
+# Local editor and analysis metadata
+.claude/
+.semgrep/

@@ -1,0 +1,74 @@
+/* EASATA simulation: motion + modern surfaces, and print styles for the incident report. */
+
+.sim-page { animation: sim-fade-up .45s cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes sim-fade-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+.sim-stagger > * { animation: sim-fade-up .5s cubic-bezier(.2, .8, .2, 1) both; }
+.sim-stagger > *:nth-child(2) { animation-delay: .05s; }
+.sim-stagger > *:nth-child(3) { animation-delay: .1s; }
+.sim-stagger > *:nth-child(4) { animation-delay: .15s; }
+.sim-stagger > *:nth-child(5) { animation-delay: .2s; }
+.sim-stagger > *:nth-child(6) { animation-delay: .25s; }
+.sim-stagger > *:nth-child(7) { animation-delay: .3s; }
+.sim-stagger > *:nth-child(8) { animation-delay: .35s; }
+
+.glass {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 1.25rem;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 20px 40px -24px rgba(0, 0, 0, 0.8);
+}
+.lift { transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease; }
+.lift:hover { transform: translateY(-2px); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset, 0 24px 48px -20px rgba(0, 0, 0, 0.9); }
+
+.mode-card { position: relative; overflow: hidden; }
+.mode-card::after {
+  content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .25s;
+  background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 0%), rgba(255, 255, 255, 0.10), transparent 40%);
+}
+.mode-card:hover::after { opacity: 1; }
+.mode-card[data-on="true"].normal { border-color: rgba(52, 211, 153, 0.7); box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.12), 0 20px 50px -20px rgba(16, 185, 129, 0.5); }
+.mode-card[data-on="true"].medium { border-color: rgba(251, 191, 36, 0.7); box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.12), 0 20px 50px -20px rgba(217, 119, 6, 0.5); }
+.mode-card[data-on="true"].attack { border-color: rgba(244, 63, 94, 0.7); box-shadow: 0 0 0 4px rgba(244, 63, 94, 0.12), 0 20px 50px -20px rgba(225, 29, 72, 0.5); }
+
+.run-btn { position: relative; overflow: hidden; }
+.run-btn::before {
+  content: ""; position: absolute; inset: 0; transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  animation: sim-shine 2.8s ease-in-out infinite;
+}
+@keyframes sim-shine { 0%, 60% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+.pulse-ring { animation: sim-pulse 1.8s ease-out infinite; }
+@keyframes sim-pulse { 0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.55); } 100% { box-shadow: 0 0 0 14px rgba(244, 63, 94, 0); } }
+
+.bar-grow { animation: sim-grow .9s cubic-bezier(.2, .8, .2, 1) both; transform-origin: left; }
+@keyframes sim-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+.edge-flow { stroke-dasharray: 6 8; animation: sim-flow 1.2s linear infinite; }
+@keyframes sim-flow { to { stroke-dashoffset: -28; } }
+
+.scroll-thin { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.2) transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sim-page, .sim-stagger > *, .bar-grow, .run-btn::before, .pulse-ring, .edge-flow { animation: none !important; }
+  .lift:hover { transform: none; }
+}
+
+/* Print only the incident report (Alert → Incident report → Print). */
+@media print {
+  body { background: #fff !important; color: #000 !important; }
+  body.print-report header,
+  body.print-report nav,
+  body.print-report .print\:hidden { display: none !important; }
+  body.print-report main * { visibility: hidden; }
+  body.print-report .report,
+  body.print-report .report * { visibility: visible; color: #000 !important; }
+  body.print-report .report {
+    position: absolute; left: 0; top: 0; width: 100%;
+    background: #fff !important; border: none !important; box-shadow: none !important;
+    backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+  }
+}

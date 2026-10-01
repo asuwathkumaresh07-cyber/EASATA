@@ -1,0 +1,73 @@
+### VS Code "REST Client" / JetBrains HTTP client examples
+@base = http://localhost:8000
+@ops = paste-your-ops-key-here   # backend/data/ops_api_key.txt
+
+GET {{base}}/api/health
+
+###
+GET {{base}}/api/overview
+
+###
+GET {{base}}/api/alerts?status=NEW&sort=expected_loss&size=10
+
+###
+GET {{base}}/api/alerts/TXN0000122174
+
+###
+POST {{base}}/api/ops/alerts/TXN0000122174/notify
+X-Ops-Key: {{ops}}
+
+###
+GET {{base}}/api/demo/inbox?channel=email&limit=3
+
+###
+# paste the token from the email link
+POST {{base}}/api/respond/info
+Content-Type: application/json
+
+{"token": "PASTE_TOKEN"}
+
+###
+POST {{base}}/api/respond/not-me
+Content-Type: application/json
+
+{"token": "PASTE_TOKEN"}
+
+###
+GET {{base}}/api/simulate/presets?customer_id=CUST00155309
+
+###
+POST {{base}}/api/simulate
+Content-Type: application/json
+
+{"customer_id": "CUST00155309", "merchant_category": "Crypto Exchange", "payment_method": "Debit Card",
+ "device_type": "Mobile", "country": "UK", "city": "Mumbai", "transaction_amount": 2465.01,
+ "distance_from_home_km": 1500, "is_international": 1, "failed_attempts": 3, "pin_changed_recently": 1,
+ "timestamp": "2024-05-27 02:14:00"}
+
+###
+POST {{base}}/api/simulate?commit=true
+Content-Type: application/json
+Idempotency-Key: demo-0001
+
+{"customer_id": "CUST00155309", "merchant_category": "Crypto Exchange", "payment_method": "Debit Card",
+ "device_type": "Mobile", "country": "UK", "city": "Mumbai", "transaction_amount": 2465.01,
+ "distance_from_home_km": 1500, "is_international": 1, "failed_attempts": 3, "pin_changed_recently": 1,
+ "timestamp": "2024-05-27 02:14:00"}
+
+###
+GET {{base}}/api/ops/cases
+X-Ops-Key: {{ops}}
+
+###
+POST {{base}}/api/ops/cases/1/transition
+X-Ops-Key: {{ops}}
+Content-Type: application/json
+
+{"to": "INVESTIGATING", "note": "Reviewing merchant records"}
+
+###
+GET {{base}}/api/monitoring
+
+###
+GET {{base}}/api/evaluation

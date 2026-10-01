@@ -1,0 +1,553 @@
+{
+  "catboost": {
+    "avg_precision": 0.1213,
+    "roc_auc": 0.7277,
+    "precision": 0.136,
+    "recall": 0.3511,
+    "f1": 0.196,
+    "alerts_per_1000": 141.89,
+    "confusion": {
+      "tn": 123369,
+      "fp": 18389,
+      "fn": 5348,
+      "tp": 2894
+    }
+  },
+  "isolation_forest": {
+    "avg_precision": 0.0695,
+    "roc_auc": 0.5744,
+    "precision": 0.0774,
+    "recall": 0.2694,
+    "f1": 0.1203,
+    "alerts_per_1000": 191.13,
+    "confusion": {
+      "tn": 115308,
+      "fp": 26450,
+      "fn": 6022,
+      "tp": 2220
+    }
+  },
+  "amount_threshold_baseline": {
+    "avg_precision": 0.0578,
+    "roc_auc": 0.5152,
+    "precision": 0.0549,
+    "recall": 1.0,
+    "f1": 0.1042,
+    "alerts_per_1000": 999.97,
+    "confusion": {
+      "tn": 5,
+      "fp": 141753,
+      "fn": 0,
+      "tp": 8242
+    }
+  },
+  "calibration": {
+    "brier": 0.04998,
+    "reliability": [
+      {
+        "predicted": 0.0094,
+        "observed": 0.0091,
+        "n": 15196
+      },
+      {
+        "predicted": 0.011,
+        "observed": 0.0091,
+        "n": 15672
+      },
+      {
+        "predicted": 0.0113,
+        "observed": 0.0098,
+        "n": 18150
+      },
+      {
+        "predicted": 0.0461,
+        "observed": 0.0477,
+        "n": 30143
+      },
+      {
+        "predicted": 0.0507,
+        "observed": 0.0492,
+        "n": 12507
+      },
+      {
+        "predicted": 0.0604,
+        "observed": 0.0564,
+        "n": 16587
+      },
+      {
+        "predicted": 0.0855,
+        "observed": 0.0877,
+        "n": 15317
+      },
+      {
+        "predicted": 0.1041,
+        "observed": 0.1068,
+        "n": 11540
+      },
+      {
+        "predicted": 0.1552,
+        "observed": 0.149,
+        "n": 14888
+      }
+    ]
+  },
+  "recall_by_fraud_type": [
+    {
+      "fraud_type": "Account Takeover",
+      "recall": 0.3299,
+      "n": 1379
+    },
+    {
+      "fraud_type": "Card Cloning",
+      "recall": 0.358,
+      "n": 1338
+    },
+    {
+      "fraud_type": "Friendly Fraud",
+      "recall": 0.3484,
+      "n": 1369
+    },
+    {
+      "fraud_type": "Identity Theft",
+      "recall": 0.3504,
+      "n": 1410
+    },
+    {
+      "fraud_type": "Phishing",
+      "recall": 0.3477,
+      "n": 1369
+    },
+    {
+      "fraud_type": "Synthetic Identity",
+      "recall": 0.3725,
+      "n": 1377
+    }
+  ],
+  "group_check": {
+    "country": [
+      {
+        "country": "Australia",
+        "n": 7515,
+        "alert_rate": 0.1542,
+        "fraud_rate": 0.0559,
+        "recall": 0.3833
+      },
+      {
+        "country": "Brazil",
+        "n": 11904,
+        "alert_rate": 0.14,
+        "fraud_rate": 0.0586,
+        "recall": 0.3381
+      },
+      {
+        "country": "Canada",
+        "n": 10302,
+        "alert_rate": 0.144,
+        "fraud_rate": 0.0556,
+        "recall": 0.37
+      },
+      {
+        "country": "France",
+        "n": 10664,
+        "alert_rate": 0.1342,
+        "fraud_rate": 0.0531,
+        "recall": 0.3551
+      },
+      {
+        "country": "Germany",
+        "n": 11921,
+        "alert_rate": 0.1361,
+        "fraud_rate": 0.0578,
+        "recall": 0.3251
+      },
+      {
+        "country": "India",
+        "n": 18005,
+        "alert_rate": 0.1399,
+        "fraud_rate": 0.0532,
+        "recall": 0.3445
+      },
+      {
+        "country": "Japan",
+        "n": 10314,
+        "alert_rate": 0.1401,
+        "fraud_rate": 0.0512,
+        "recall": 0.3598
+      },
+      {
+        "country": "Mexico",
+        "n": 9172,
+        "alert_rate": 0.1462,
+        "fraud_rate": 0.0533,
+        "recall": 0.3558
+      },
+      {
+        "country": "UK",
+        "n": 15234,
+        "alert_rate": 0.1424,
+        "fraud_rate": 0.0536,
+        "recall": 0.337
+      },
+      {
+        "country": "USA",
+        "n": 44969,
+        "alert_rate": 0.1434,
+        "fraud_rate": 0.0557,
+        "recall": 0.3557
+      }
+    ],
+    "device_type": [
+      {
+        "device_type": "ATM",
+        "n": 15153,
+        "alert_rate": 0.1379,
+        "fraud_rate": 0.0557,
+        "recall": 0.3637
+      },
+      {
+        "device_type": "Desktop",
+        "n": 37436,
+        "alert_rate": 0.1382,
+        "fraud_rate": 0.0538,
+        "recall": 0.3449
+      },
+      {
+        "device_type": "Mobile",
+        "n": 67366,
+        "alert_rate": 0.1451,
+        "fraud_rate": 0.0553,
+        "recall": 0.3571
+      },
+      {
+        "device_type": "POS Terminal",
+        "n": 14947,
+        "alert_rate": 0.1433,
+        "fraud_rate": 0.0562,
+        "recall": 0.3405
+      },
+      {
+        "device_type": "Tablet",
+        "n": 15098,
+        "alert_rate": 0.1392,
+        "fraud_rate": 0.054,
+        "recall": 0.337
+      }
+    ],
+    "payment_method": [
+      {
+        "payment_method": "Bank Transfer",
+        "n": 22328,
+        "alert_rate": 0.1366,
+        "fraud_rate": 0.0536,
+        "recall": 0.3462
+      },
+      {
+        "payment_method": "Cheque",
+        "n": 4453,
+        "alert_rate": 0.1302,
+        "fraud_rate": 0.0633,
+        "recall": 0.3582
+      },
+      {
+        "payment_method": "Credit Card",
+        "n": 52765,
+        "alert_rate": 0.1453,
+        "fraud_rate": 0.0561,
+        "recall": 0.3524
+      },
+      {
+        "payment_method": "Crypto",
+        "n": 7508,
+        "alert_rate": 0.1339,
+        "fraud_rate": 0.055,
+        "recall": 0.3148
+      },
+      {
+        "payment_method": "Debit Card",
+        "n": 44955,
+        "alert_rate": 0.1425,
+        "fraud_rate": 0.0535,
+        "recall": 0.3562
+      },
+      {
+        "payment_method": "Mobile Payment",
+        "n": 17991,
+        "alert_rate": 0.1431,
+        "fraud_rate": 0.0547,
+        "recall": 0.3543
+      }
+    ],
+    "merchant_category": [
+      {
+        "merchant_category": "ATM Withdrawal",
+        "n": 9909,
+        "alert_rate": 0.255,
+        "fraud_rate": 0.0868,
+        "recall": 0.4326
+      },
+      {
+        "merchant_category": "Clothing",
+        "n": 10100,
+        "alert_rate": 0.1136,
+        "fraud_rate": 0.0479,
+        "recall": 0.3285
+      },
+      {
+        "merchant_category": "Crypto Exchange",
+        "n": 9954,
+        "alert_rate": 0.2611,
+        "fraud_rate": 0.0889,
+        "recall": 0.4147
+      },
+      {
+        "merchant_category": "Education",
+        "n": 9984,
+        "alert_rate": 0.1104,
+        "fraud_rate": 0.046,
+        "recall": 0.3203
+      },
+      {
+        "merchant_category": "Electronics",
+        "n": 10210,
+        "alert_rate": 0.1138,
+        "fraud_rate": 0.0509,
+        "recall": 0.3019
+      },
+      {
+        "merchant_category": "Entertainment",
+        "n": 10107,
+        "alert_rate": 0.1174,
+        "fraud_rate": 0.0491,
+        "recall": 0.3206
+      },
+      {
+        "merchant_category": "Fuel",
+        "n": 10185,
+        "alert_rate": 0.114,
+        "fraud_rate": 0.0493,
+        "recall": 0.3187
+      },
+      {
+        "merchant_category": "Gaming",
+        "n": 9770,
+        "alert_rate": 0.1043,
+        "fraud_rate": 0.0484,
+        "recall": 0.3108
+      },
+      {
+        "merchant_category": "Grocery",
+        "n": 9922,
+        "alert_rate": 0.1121,
+        "fraud_rate": 0.0459,
+        "recall": 0.3121
+      },
+      {
+        "merchant_category": "Healthcare",
+        "n": 9938,
+        "alert_rate": 0.1123,
+        "fraud_rate": 0.0486,
+        "recall": 0.3437
+      },
+      {
+        "merchant_category": "Jewelry",
+        "n": 10001,
+        "alert_rate": 0.2735,
+        "fraud_rate": 0.0879,
+        "recall": 0.4357
+      },
+      {
+        "merchant_category": "Online Shopping",
+        "n": 9789,
+        "alert_rate": 0.1082,
+        "fraud_rate": 0.0421,
+        "recall": 0.301
+      },
+      {
+        "merchant_category": "Restaurant",
+        "n": 10043,
+        "alert_rate": 0.1152,
+        "fraud_rate": 0.0437,
+        "recall": 0.3189
+      },
+      {
+        "merchant_category": "Travel",
+        "n": 9881,
+        "alert_rate": 0.1101,
+        "fraud_rate": 0.0486,
+        "recall": 0.3021
+      },
+      {
+        "merchant_category": "Utilities",
+        "n": 10207,
+        "alert_rate": 0.1089,
+        "fraud_rate": 0.0407,
+        "recall": 0.3036
+      }
+    ],
+    "age_band": [
+      {
+        "age_band": "25-34",
+        "n": 31374,
+        "alert_rate": 0.1502,
+        "fraud_rate": 0.0561,
+        "recall": 0.361
+      },
+      {
+        "age_band": "35-49",
+        "n": 60636,
+        "alert_rate": 0.1497,
+        "fraud_rate": 0.0537,
+        "recall": 0.3664
+      },
+      {
+        "age_band": "50-64",
+        "n": 32517,
+        "alert_rate": 0.117,
+        "fraud_rate": 0.0542,
+        "recall": 0.2957
+      },
+      {
+        "age_band": "65+",
+        "n": 6542,
+        "alert_rate": 0.1218,
+        "fraud_rate": 0.0581,
+        "recall": 0.3289
+      },
+      {
+        "age_band": "<25",
+        "n": 18931,
+        "alert_rate": 0.1528,
+        "fraud_rate": 0.0573,
+        "recall": 0.3871
+      }
+    ]
+  },
+  "explanation_audit": [
+    {
+      "fraud_type": "Account Takeover",
+      "amount": 0.0,
+      "location": 0.246,
+      "profile": 0.042,
+      "security": 0.657,
+      "time": 0.002,
+      "velocity": 0.053
+    },
+    {
+      "fraud_type": "Card Cloning",
+      "amount": 0.002,
+      "location": 0.211,
+      "profile": 0.035,
+      "security": 0.697,
+      "time": 0.0,
+      "velocity": 0.054
+    },
+    {
+      "fraud_type": "Friendly Fraud",
+      "amount": 0.002,
+      "location": 0.233,
+      "profile": 0.036,
+      "security": 0.673,
+      "time": 0.004,
+      "velocity": 0.052
+    },
+    {
+      "fraud_type": "Identity Theft",
+      "amount": 0.0,
+      "location": 0.227,
+      "profile": 0.028,
+      "security": 0.696,
+      "time": 0.002,
+      "velocity": 0.047
+    },
+    {
+      "fraud_type": "Phishing",
+      "amount": 0.002,
+      "location": 0.218,
+      "profile": 0.04,
+      "security": 0.685,
+      "time": 0.002,
+      "velocity": 0.053
+    },
+    {
+      "fraud_type": "Synthetic Identity",
+      "amount": 0.0,
+      "location": 0.201,
+      "profile": 0.043,
+      "security": 0.696,
+      "time": 0.002,
+      "velocity": 0.058
+    }
+  ],
+  "global_importance": {
+    "is_night_transaction": 0.36546,
+    "failed_attempts": 0.27202,
+    "merchant_category": 0.26996,
+    "is_international": 0.24639,
+    "pin_changed_recently": 0.09142,
+    "hour_of_day": 0.08359,
+    "time_since_last_txn_hrs": 0.07246,
+    "credit_score": 0.01357,
+    "customer_age": 0.01156,
+    "payment_method": 0.00845,
+    "limited_history": 0.0066,
+    "account_balance": 0.0063,
+    "amount_to_balance": 0.00487,
+    "amt_vs_cust_mean": 0.00441,
+    "new_payment_method_for_cust": 0.00428,
+    "distance_from_home_km": 0.00396,
+    "transaction_amount": 0.00387,
+    "device_type": 0.00358,
+    "log_amount": 0.00296,
+    "hour_band_share_cust": 0.00264
+  },
+  "false_positive_example": {
+    "score": 0.4,
+    "reasons": [
+      {
+        "feature": "failed_attempts",
+        "value": "2.00",
+        "shap": 1.1791,
+        "family": "security",
+        "text": "2 failed attempts before this transaction"
+      },
+      {
+        "feature": "is_international",
+        "value": "1.00",
+        "shap": 0.6594,
+        "family": "location",
+        "text": "is international = 1.00 (typical 0.00)"
+      },
+      {
+        "feature": "credit_score",
+        "value": "499.00",
+        "shap": 0.5207,
+        "family": "profile",
+        "text": "credit score = 499.00 (typical 679.00)"
+      },
+      {
+        "feature": "merchant_category",
+        "value": "Crypto Exchange",
+        "shap": 0.5039,
+        "family": "profile",
+        "text": "merchant category = Crypto Exchange (typical Entertainment)"
+      },
+      {
+        "feature": "customer_age",
+        "value": "42.00",
+        "shap": 0.0126,
+        "family": "profile",
+        "text": "customer age = 42.00 (typical 42.00)"
+      }
+    ],
+    "families": {
+      "security": 1.1433,
+      "profile": 1.0492,
+      "location": 0.6455,
+      "amount": -0.0061,
+      "velocity": -0.0111,
+      "time": -0.1712
+    },
+    "text": "Flagged for review (score 0.40). Main factors: 2 failed attempts before this transaction; is international = 1.00 (typical 0.00); credit score = 499.00 (typical 679.00).",
+    "transaction_id": "TXN0000753226"
+  }
+}
