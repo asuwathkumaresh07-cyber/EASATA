@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: easata
+    runtime: python
+    plan: free
+    buildCommand: pip install -r backend/requirements.txt && npm --prefix frontend ci && npm --prefix frontend run build
+    startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.11
+      - key: NODE_VERSION
+        value: 20.19.1
+      - key: DEMO_MODE
+        value: "0"
+      - key: SMTP_ENABLED
+        value: "0"
+      - key: OPS_API_KEY
+        generateValue: true
+      - key: PUBLIC_URL
+        fromService:
+          type: web
+          name: easata
+          envVarKey: RENDER_EXTERNAL_URL
