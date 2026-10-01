@@ -62,7 +62,7 @@ flowchart LR
   anomaly -. separate signal .-> review[Analyst review]
   decision -->|PROCEED| pass[Continue]
   decision -->|STEP_UP| otp[Verify with OTP]
-  decision -->|HOLD| ask[Ask "Was this you?"]
+  decision -->|HOLD| ask[Ask if it was you]
   decision -->|BLOCK| stop[Stop payment]
   ask -->|Not me| freeze[Freeze account · open case]
   ask -->|It was me + OTP| trust[Remember a safe pattern]
