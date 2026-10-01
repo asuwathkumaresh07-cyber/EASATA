@@ -1,33 +1,74 @@
-# EASATA – Every alert has a story
+# EASATA
 
-A defensive system that flags unusual transactions, **explains each alert with verified, data-derived reasons**, and runs a
-secure **"Was this you?" → Not me → freeze → bank case** workflow with adaptive friction.
+### Every alert has a story.
 
-> **Synthetic data, simulated outcomes.** Trained on the public synthetic
-> [Bank Transaction Fraud Detection Dataset](https://www.kaggle.com/datasets/nafiulislam490/bank-transaction-fraud-detection-dataset).
-> No real bank, customer or payment is involved. A score means "flagged for review", never proof of fraud. Freezes,
-> holds, credits and emails are simulated.
+An explainable transaction-risk demo that turns a suspicious payment into a verified explanation and a customer response workflow, from **"Was this you?"** to a simulated freeze and case.
 
-## Architecture
+<p align="center">
+  <a href="https://easata.onrender.com"><img src="https://img.shields.io/badge/OPEN_LIVE_DEMO-easata.onrender.com-0D817A?style=for-the-badge&logo=render&logoColor=white" alt="Open the live EASATA demo"></a>
+  <a href="https://easata.onrender.com/api/health"><img src="https://img.shields.io/website?url=https%3A%2F%2Feasata.onrender.com%2Fapi%2Fhealth&label=API&up_message=healthy&down_message=starting" alt="EASATA API health"></a>
+  <img src="https://img.shields.io/badge/data-synthetic-2563EB?style=flat-square" alt="Synthetic data">
+  <img src="https://img.shields.io/badge/outcomes-simulated-64748B?style=flat-square" alt="Simulated outcomes">
+</p>
 
+> **Watch it in motion:** the landing page's globe and payment routes react as you scroll. [Launch the live experience](https://easata.onrender.com).
+>
+> **Synthetic data, simulated outcomes.** Trained on the public synthetic [Bank Transaction Fraud Detection Dataset](https://www.kaggle.com/datasets/nafiulislam490/bank-transaction-fraud-detection-dataset). No real bank, customer, or payment is involved. A score means "flagged for review," never proof of fraud. Freezes, holds, credits, and emails are simulated.
+
+## System Map
+
+```mermaid
+flowchart LR
+  subgraph train[Model training · Google Colab]
+    data[Transaction data] --> features[Point-in-time features]
+    features --> fit[CatBoost · calibration · threshold]
+    fit --> bundle[Versioned model bundle]
+  end
+
+  subgraph app[EASATA application]
+    web[React · Vite · Recharts] <-->|JSON API| api[FastAPI]
+    api --> score[Scores · verified reasons · SHAP]
+    api --> policy[Adaptive decision policy]
+    api --> flow[Alerts · OTP · cases · audit trail]
+    api <--> db[(SQLite demo state)]
+    api --> monitor[PSI · alert-rate monitoring]
+  end
+
+  bundle -->|backend/model_bundle| api
+  score --> policy --> web
+  flow --> web
+
+  classDef client fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e
+  classDef service fill:#dcfce7,stroke:#16a34a,color:#14532d
+  classDef model fill:#fef3c7,stroke:#d97706,color:#78350f
+  class web client
+  class api,score,policy,flow,db,monitor service
+  class data,features,fit,bundle model
 ```
-┌──────────────── Google Colab (notebook/fraud_catboost_colab.ipynb) ────────────────┐
-│ load all files → point-in-time features → time split → Optuna-tuned CatBoost        │
-│ → isotonic calibration → threshold on validation → Isolation Forest → SHAP          │
-│ → evaluation on untouched test period → model_bundle.zip                           │
-└──────────────────────────────────────┬──────────────────────────────────────────────┘
-                                       │ unzip into backend/model_bundle/
-┌──────────────────────────────── FastAPI backend (backend/app) ────────────────────────────────┐
-│ model_service  score · anomaly percentile · SHAP · verified reasons · what-changed · counterfactual │
-│ decision       adaptive friction: PROCEED / STEP_UP / HOLD / BLOCK (probability × amount)          │
-│ workflow       alerts · single-use links · OTP · freeze · cases + RBI-style deadlines · trusted     │
-│                patterns · simulation · idempotency (all state changes = one atomic SQLite txn)    │
-│ monitoring     monthly alert rate + PSI drift          notifier  outbox (+ SMTP/Mailpit if present) │
-│ SQLite (data/app.db): transactions, alerts, notifications, otps, accounts, cases,                  │
-│        case_actions (append-only), feedback, trusted_patterns, outbox, idempotency                 │
-└──────────────────────────────────────┬──────────────────────────────────────────────────────────┘
-                                       │ JSON API (docs/API.md, /docs)
-                              Frontend (React + Vite + Recharts)
+
+## From Payment to Response
+
+```mermaid
+flowchart LR
+  payment[Payment] --> signals[Point-in-time signals]
+  signals --> probability[Calibrated fraud probability]
+  signals --> anomaly[Anomaly percentile]
+  probability --> loss[Expected loss = probability × amount]
+  loss --> decision{Adaptive friction}
+  anomaly -. separate signal .-> review[Analyst review]
+  decision -->|PROCEED| pass[Continue]
+  decision -->|STEP_UP| otp[Verify with OTP]
+  decision -->|HOLD| ask[Ask "Was this you?"]
+  decision -->|BLOCK| stop[Stop payment]
+  ask -->|Not me| freeze[Freeze account · open case]
+  ask -->|It was me + OTP| trust[Remember a safe pattern]
+
+  classDef signal fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e
+  classDef choice fill:#fef3c7,stroke:#d97706,color:#78350f
+  classDef response fill:#dcfce7,stroke:#16a34a,color:#14532d
+  class payment,signals,probability,anomaly,loss signal
+  class decision choice
+  class pass,otp,ask,stop,freeze,trust,review response
 ```
 
 ## Quick start
@@ -123,6 +164,27 @@ which the API also serves at http://localhost:8000 after a restart (then paste t
 | **CatBoost (calibrated)** | **0.121** | **0.728** | 0.136 | 0.351 | 141.9 |
 | Isolation Forest | 0.070 | 0.574 | 0.077 | 0.269 | 191.1 |
 | Amount-only baseline | 0.058 | 0.515 | 0.055 | 1.000 | 1000.0 |
+
+### Model Comparison
+
+```mermaid
+xychart-beta
+  title "Average precision · held-out test period"
+  x-axis [CatBoost, Isolation Forest, Amount-only]
+  y-axis "Average precision" 0 --> 0.13
+  bar [0.121, 0.070, 0.058]
+```
+
+### Friction Mix
+
+```mermaid
+pie showData
+  title Decision bands across the 150,000-payment demo set
+  "Proceed · 65.3%" : 65.3
+  "Ask for a code · 19.7%" : 19.7
+  "Pause and ask · 13.6%" : 13.6
+  "Stop · 1.4%" : 1.4
+```
 
 The fraud base rate is 5.5%, so random guessing gives an average precision of about 0.055. Calibration is good
 (Brier 0.050; predicted ≈ observed per decile). Numbers come from the notebook run; retraining changes them, and the API
