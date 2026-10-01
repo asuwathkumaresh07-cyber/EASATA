@@ -11,6 +11,10 @@ An explainable transaction-risk demo that turns a suspicious payment into a veri
   <img src="https://img.shields.io/badge/outcomes-simulated-64748B?style=flat-square" alt="Simulated outcomes">
 </p>
 
+<p align="center">
+  <a href="https://easata.onrender.com"><img src="docs/easata-globe.gif" alt="Looping EASATA globe animation. Open the live demo." width="720"></a>
+</p>
+
 > **Watch it in motion:** the landing page's globe and payment routes react as you scroll. [Launch the live experience](https://easata.onrender.com).
 >
 > **Synthetic data, simulated outcomes.** Trained on the public synthetic [Bank Transaction Fraud Detection Dataset](https://www.kaggle.com/datasets/nafiulislam490/bank-transaction-fraud-detection-dataset). No real bank, customer, or payment is involved. A score means "flagged for review," never proof of fraud. Freezes, holds, credits, and emails are simulated.
